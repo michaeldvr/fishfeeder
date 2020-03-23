@@ -30,9 +30,9 @@ uint8_t counter = 0;
 
 Servo servo;
 const uint8_t servoPin = D8;
-const uint8_t TRAY_CLOSE = 0;
+const uint8_t TRAY_CLOSE = 80;
 const uint8_t TRAY_OPEN = 180;
-const uint8_t FEED_SIZE = 20; // ms
+const uint8_t FEED_SIZE = 11; // ms
 const int FEEDING_DELAY = 600; // ms
 const float EMPTY_FOOD_THRESHOLD = 30;
 uint8_t servoState = TRAY_CLOSE;
