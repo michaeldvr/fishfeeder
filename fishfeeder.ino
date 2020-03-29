@@ -23,16 +23,14 @@ const char *password = "29situbondo";
 // constants won't change. They're used here to set pin numbers:
 const uint8_t buttonPin = D7; // the number of the pushbutton pin
 const uint8_t statusLedPin = D5;    // the number of the LED pin
-const uint8_t temtPin = A0;
-const uint8_t foodLedPin = D6; // food level
 int switchValue;
 uint8_t counter = 0;
 
 Servo servo;
 const uint8_t servoPin = D8;
-const uint8_t TRAY_CLOSE = 80;
-const uint8_t TRAY_OPEN = 180;
-const uint8_t FEED_SIZE = 11; // ms
+const uint8_t TRAY_CLOSE = 0;
+const uint8_t TRAY_OPEN = 60;
+const uint8_t FEED_SIZE = 3; // ms
 const int FEEDING_DELAY = 600; // ms
 const float EMPTY_FOOD_THRESHOLD = 30;
 uint8_t servoState = TRAY_CLOSE;
@@ -91,8 +89,6 @@ void setup()
 
   pinMode(buttonPin, INPUT_PULLUP);
   pinMode(statusLedPin, OUTPUT);
-  pinMode(temtPin, INPUT);
-  pinMode(foodLedPin, OUTPUT);
 
   // Servo
   servo.attach(servoPin);
@@ -162,16 +158,6 @@ void start_feeding() {
   }
 }
 
-void check_light() {
-  if (counter % 10 == 1) {
-    float reading = analogRead(temtPin);
-    Serial.print("intensity: ");
-    Serial.println(reading);
-    lowContent = (reading < EMPTY_FOOD_THRESHOLD);
-    digitalWrite(foodLedPin, lowContent);
-  }
-}
-
 void loop()
 {
   // server.handleClient(); //Handling of incoming requests
@@ -196,6 +182,5 @@ void loop()
   }
   check_feeding_time(now);
   start_feeding();
-  check_light();
   counter++;
 }
